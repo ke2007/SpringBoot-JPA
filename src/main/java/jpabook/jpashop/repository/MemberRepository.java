@@ -1,6 +1,8 @@
 package jpabook.jpashop.repository;
 
 import jpabook.jpashop.domain.Member;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -8,9 +10,10 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository  //컴포넌트 스캔에의해 자동으로 스프링 빈에의해 관리가되게된다
+@RequiredArgsConstructor
 public class MemberRepository {
-    @PersistenceContext //jPA가 제공하는 표준 어노테이션
-    private EntityManager em; //스프링이 엔티티매니저를 만들어서 주입해준다.
+    //jPA가 제공하는 표준 어노테이션
+    private final EntityManager em; //스프링이 엔티티매니저를 만들어서 주입해준다. // 여기서도 RequiredArgsConstructor 사용가능.
 
     public void save(Member member) {
         em.persist(member); //persist 하면 영속성컨텍스트에 member객체를 넣는다, 나중에 트랙잭션이 커밋되는시점에 db에 반영
